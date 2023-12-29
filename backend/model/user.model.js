@@ -1,9 +1,9 @@
-const { Sequelize, DataTypes } = require("sequelize");
+const { DataTypes } = require('sequelize');
 
-const sequelize = require("../services/db");
+const sequelize = require('../services/db');
 
 const User = sequelize.define(
-  "Users",
+  'User',
   {
     UserID: {
       type: DataTypes.INTEGER,
@@ -34,12 +34,13 @@ const User = sequelize.define(
       defaultValue: 0.0,
     },
     CreditRating: {
-      type: DataTypes.ENUM("1", "2", "3", "4", "5"),
-      defaultValue: "1",
+      type: DataTypes.ENUM('1', '2', '3', '4', '5'),
+      defaultValue: '1',
     },
   },
   {
-    timestamps: false, // 禁用 Sequelize 的自动时间戳
+    tableName: 'Users',
+    timestamps: false,
   }
 );
 
