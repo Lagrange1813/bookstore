@@ -2,12 +2,6 @@ import axios from "axios";
 
 const baseUrl = '/api/books'
 
-let token = null
-
-const setToken = newToken => {
-  token = `Bearer ${newToken}`
-}
-
 const getAllBooks = async () => {
   const response = await axios.get(baseUrl);
   return response.data;
@@ -38,6 +32,6 @@ const getBooksByAuthors = async (authors) => {
   return response.data;
 }
 
-const bookService = { setToken, getAllBooks, getBooksByID, getBooksByTitle, getBooksByPublisher, getBooksByKeywords, getBooksByAuthors };
+const bookService = {getAllBooks, getBooksByID, getBooksByTitle, getBooksByPublisher, getBooksByKeywords, getBooksByAuthors };
 
 export default bookService;

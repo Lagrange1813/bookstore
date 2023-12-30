@@ -29,4 +29,15 @@ loginRouter.post('/', async (request, response) => {
   response.status(200).send({ token, username: user.Username });
 });
 
+loginRouter.post('/verify', async (request, response) => {
+  const { token } = request.body;
+
+  try {
+    jwt.verify(token, process.env.SECRET);
+    response.status(200).send();
+  } catch (error) {
+    response.status(401).send();
+  }
+});
+
 module.exports = loginRouter;

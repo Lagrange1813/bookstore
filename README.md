@@ -1,0 +1,1 @@
+# Bookstore## Tech stack`React` + `Express` + `Sequelize` + `MySQL`## Pre-Knowledge- https://fullstackopen.com/zh/- https://www.digitalocean.com/community/tutorials/how-to-use-sequelize-with-node-js-and-mysql

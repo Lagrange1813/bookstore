@@ -7,6 +7,11 @@ const login = async (username, password) => {
   return response.data;
 }
 
-const loginService = { login }
+const verify = async (token) => {
+  const response = await axios.post(`${baseUrl}/verify`, { token });
+  return response.status === 200;
+}
+
+const loginService = { login, verify }
 
 export default loginService;
