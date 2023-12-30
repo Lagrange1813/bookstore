@@ -51,6 +51,11 @@ const Books = () => {
           setBooks(books);
           break;
         }
+        case "authors": {
+          const books = await bookService.getBooksByAuthors(query);
+          setBooks(books);
+          break;
+        }
         default:
           break;
       }
@@ -116,6 +121,15 @@ const CheckBox = ({ type, setType }) => {
           onChange={() => setType("keywords")}
         />
         Keywords
+      </label>
+      <label>
+        <input
+          type="radio"
+          value="authors"
+          checked={type === "authors"}
+          onChange={() => setType("authors")}
+        />
+        Authors
       </label>
     </div>
   );

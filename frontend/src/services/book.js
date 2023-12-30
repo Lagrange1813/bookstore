@@ -33,6 +33,11 @@ const getBooksByKeywords = async (keywords) => {
   return response.data;
 }
 
-const bookService = { setToken, getAllBooks, getBooksByID, getBooksByTitle, getBooksByPublisher, getBooksByKeywords };
+const getBooksByAuthors = async (authors) => {
+  const response = await axios.get(`${baseUrl}/authors/${authors}`);
+  return response.data;
+}
+
+const bookService = { setToken, getAllBooks, getBooksByID, getBooksByTitle, getBooksByPublisher, getBooksByKeywords, getBooksByAuthors };
 
 export default bookService;
