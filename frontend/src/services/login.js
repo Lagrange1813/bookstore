@@ -1,17 +1,21 @@
-import axios from "axios";
+import { defaultAxios, authAxios } from "./apiService";
 
-const baseUrl = '/api/login'
+const baseUrl = "/login";
 
 const login = async (username, password) => {
-  const response = await axios.post(baseUrl, { username, password });
+  const response = await defaultAxios.post(baseUrl, { username, password });
   return response.data;
+};
+
+const verify = async () => {
+  try {
+    const response = await authAxios.get(`${baseUrl}/verify`);
+    return response.status === 200;
+  } catch {
+    return false;
+  }
 }
 
-const verify = async (token) => {
-  const response = await axios.post(`${baseUrl}/verify`, { token });
-  return response.status === 200;
-}
-
-const loginService = { login, verify }
+const loginService = { login, verify };
 
 export default loginService;

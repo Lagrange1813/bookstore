@@ -5,6 +5,8 @@ const User = require('../model/user.model');
 const usersRouter = require('express').Router();
 const logger = require('../utils/logger');
 
+const getTokenFrom = require('../utils/token');
+
 // New User
 usersRouter.post('/', async (request, response) => {
   logger.info('request.body', request.body);
@@ -28,15 +30,20 @@ usersRouter.post('/', async (request, response) => {
   response.status(201).json(user);
 });
 
-const getTokenFrom = request => {
-  const authorization = request.get('authorization');
-  if (authorization && authorization.toLowerCase().startsWith('bearer ')) {
-    return authorization.substring(7);
-  }
-  return null;
-};
-
 // Get User Info
+usersRouter.get('/info', async (request, response) => {
+  const token = getTokenFrom(request);
+  try {
+    const decodedToken = jwt.verify(token, process.env.SECRET);
+    const user = await User.findByPk(decodedToken.id);
+    delete user.dataValues.Password;
+    response.json(user);
+  } catch {
+    response.status(401).json({ error: 'token missing or invalid' });
+  }
+});
+
+// Update User Info
 usersRouter.post('/test', async (request, response) => {
   const token = getTokenFrom(request);
   console.log('token', token);

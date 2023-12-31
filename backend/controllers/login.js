@@ -2,6 +2,7 @@ const jwt = require('jsonwebtoken');
 const bcrypt = require('bcrypt');
 const loginRouter = require('express').Router();
 const User = require('../model/user.model');
+const getTokenFrom = require('../utils/token');
 
 loginRouter.post('/', async (request, response) => {
   const { username, password } = request.body;
@@ -37,6 +38,17 @@ loginRouter.post('/verify', async (request, response) => {
     response.status(200).send();
   } catch (error) {
     response.status(401).send();
+  }
+});
+
+loginRouter.get('/verify', async (request, response) => {
+  const token = getTokenFrom(request);
+
+  try {
+    jwt.verify(token, process.env.SECRET);
+    response.status(200).send();
+  } catch (error) {
+    response.status(401).send({ error: 'token missing or invalid' });
   }
 });
 

@@ -5,8 +5,10 @@ import loginService from "./services/login";
 
 import Login from "./components/Login";
 import Books from "./components/Books";
-import Users from "./components/Users";
+import ShoppingList from "./components/ShoppingList";
 import Orders from "./components/Orders";
+import Users from "./components/Users";
+import { setToken } from "./services/apiService";
 
 const App = () => {
   const [user, setUser] = useState(null);
@@ -17,6 +19,7 @@ const App = () => {
       console.log(loggedUserJSON);
       const user = JSON.parse(loggedUserJSON);
       setUser(user);
+      setToken(user.token);
     } else {
       console.log("no logged user");
     }
@@ -30,6 +33,7 @@ const App = () => {
         const result = await loginService.verify(user.token);
         if (!result) {
           setUser(null);
+          setToken(null);
           window.localStorage.removeItem("loggedUser");
         }
       }
@@ -41,6 +45,7 @@ const App = () => {
     const user = await loginService.login(username, password);
     console.log(user);
     setUser(user);
+    setToken(user.token);
     window.localStorage.setItem("loggedUser", JSON.stringify(user));
   };
 
@@ -53,6 +58,7 @@ const App = () => {
           <button
             onClick={() => {
               setUser(null);
+              setToken(null);
               window.localStorage.removeItem("loggedUser");
             }}
           >
@@ -61,18 +67,20 @@ const App = () => {
           <Router>
             <div>
               <Link to="/">Books</Link>
+              <Link to="/shoppingList">ShoppingList</Link>
               <Link to="/orders">Orders</Link>
               <Link to="/users">Users</Link>
             </div>
 
             <Routes>
               <Route path="/" element={<Books />} />
+              <Route path="/shoppingList" element={<ShoppingList />} />
               <Route path="/orders" element={<Orders />} />
               <Route path="/users" element={<Users />} />
             </Routes>
 
             <div>
-              <i>Note app, Department of Computer Science 2022</i>
+              <i>Bookstore @2023 Created By LagrangePoint </i>
             </div>
           </Router>
         </div>

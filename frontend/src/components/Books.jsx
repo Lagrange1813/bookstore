@@ -1,7 +1,7 @@
 import { useState, useEffect } from "react";
 import PropTypes from "prop-types";
 
-import bookService from "../services/book";
+import booksService from "../services/books";
 
 const Books = () => {
   const [books, setBooks] = useState([]);
@@ -10,7 +10,7 @@ const Books = () => {
 
   useEffect(() => {
     const fetchBooks = async () => {
-      const books = await bookService.getAllBooks();
+      const books = await booksService.getAllBooks();
       console.log(books);
       setBooks(books);
     };
@@ -25,34 +25,34 @@ const Books = () => {
   const search = () => {
     const fetch = async () => {
       if (query === "") {
-        const books = await bookService.getAllBooks();
+        const books = await booksService.getAllBooks();
         setBooks(books);
         return;
       }
 
       switch (type) {
         case "id": {
-          const books = await bookService.getBooksByID(query);
+          const books = await booksService.getBooksByID(query);
           setBooks(books);
           break;
         }
         case "title": {
-          const books = await bookService.getBooksByTitle(query);
+          const books = await booksService.getBooksByTitle(query);
           setBooks(books);
           break;
         }
         case "publisher": {
-          const books = await bookService.getBooksByPublisher(query);
+          const books = await booksService.getBooksByPublisher(query);
           setBooks(books);
           break;
         }
         case "keywords": {
-          const books = await bookService.getBooksByKeywords(query);
+          const books = await booksService.getBooksByKeywords(query);
           setBooks(books);
           break;
         }
         case "authors": {
-          const books = await bookService.getBooksByAuthors(query);
+          const books = await booksService.getBooksByAuthors(query);
           setBooks(books);
           break;
         }
