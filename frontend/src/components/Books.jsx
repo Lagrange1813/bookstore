@@ -1,4 +1,5 @@
 import { useState, useEffect } from "react";
+import { Input, Button, Radio, List, Card } from "antd";
 import PropTypes from "prop-types";
 
 import booksService from "../services/books";
@@ -65,73 +66,38 @@ const Books = () => {
   };
 
   return (
-    <>
-      <div>
-        <input
-          type="text"
-          placeholder="Search for books"
-          value={query}
-          onChange={handleSearch} // 输入变化时更新状态
-        />
-        <button type="button" onClick={search}>
-          Search
-        </button>
-      </div>
-      <CheckBox type={type} setType={setType} />
+    <div className="m-4">
+      <Card title="Search Books" className="max-w-2xl mx-auto bg-white">
+        <div className="flex gap-2 mb-4">
+          <Input
+            placeholder="Search for books"
+            value={query}
+            onChange={handleSearch} // 输入变化时更新状态
+          />
+          <Button type="primary" className="bg-blue-500 hover:bg-blue-700 text-white" onClick={search}>
+            Search
+          </Button>
+        </div>
+        <CheckBox type={type} setType={setType} />
+      </Card>
       <BooksList books={books} />
-    </>
+    </div>
   );
 };
 
 const CheckBox = ({ type, setType }) => {
   return (
-    <div>
-      <label>
-        <input
-          type="radio"
-          value="id"
-          checked={type === "id"}
-          onChange={() => setType("id")}
-        />
-        ID
-      </label>
-      <label>
-        <input
-          type="radio"
-          value="title"
-          checked={type === "title"}
-          onChange={() => setType("title")}
-        />
-        Book Title
-      </label>
-      <label>
-        <input
-          type="radio"
-          value="publisher"
-          checked={type === "publisher"}
-          onChange={() => setType("publisher")}
-        />
-        Publisher
-      </label>
-      <label>
-        <input
-          type="radio"
-          value="keywords"
-          checked={type === "keywords"}
-          onChange={() => setType("keywords")}
-        />
-        Keywords
-      </label>
-      <label>
-        <input
-          type="radio"
-          value="authors"
-          checked={type === "authors"}
-          onChange={() => setType("authors")}
-        />
-        Authors
-      </label>
-    </div>
+    <Radio.Group
+      value={type}
+      onChange={(e) => setType(e.target.value)}
+      className="mb-4"
+    >
+      <Radio value="id">ID</Radio>
+      <Radio value="title">Book Title</Radio>
+      <Radio value="publisher">Publisher</Radio>
+      <Radio value="keywords">Keywords</Radio>
+      <Radio value="authors">Authors</Radio>
+    </Radio.Group>
   );
 };
 
@@ -142,14 +108,14 @@ CheckBox.propTypes = {
 
 const BooksList = ({ books }) => {
   return (
-    <>
-      <h1>Books</h1>
-      <ul>
-        {books.map((book) => (
-          <li key={book.BookID}>{book.Title}</li>
-        ))}
-      </ul>
-    </>
+    <List
+      bordered
+      dataSource={books}
+      renderItem={(book) => (
+        <List.Item key={book.BookID}>{book.Title}</List.Item>
+      )}
+      className="max-w-2xl mx-auto mt-4"
+    />
   );
 };
 

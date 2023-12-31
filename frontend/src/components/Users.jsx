@@ -1,4 +1,5 @@
 import { useState, useEffect } from "react";
+import { Card } from 'antd';
 import PropTypes from "prop-types";
 
 import usersService from "../services/users";
@@ -17,7 +18,6 @@ const Users = () => {
 
   return (
     <>
-      <h1>Users</h1>
       {user && <UserInfo user={user} />}
     </>
   );
@@ -25,15 +25,16 @@ const Users = () => {
 
 const UserInfo = ({ user }) => {
   return (
-    <div>
-      <h2>User Information</h2>
-      <p><b>User ID:</b> {user.UserID}</p>
-      <p><b>Username:</b> {user.Username}</p>
-      <p><b>Name:</b> {user.Name || 'Not provided'}</p>
-      <p><b>Address:</b> {user.Address || 'Not provided'}</p>
-      <p><b>Email:</b> {user.Email || 'Not provided'}</p>
-      <p><b>Account Balance:</b> ${user.AccountBalance}</p>
-      <p><b>Credit Rating:</b> {user.CreditRating}</p>
+    <div className="m-4">
+      <Card title="User Information" bordered={false} className="max-w-lg mx-auto bg-white">
+        <p><b>User ID:</b> {user.UserID}</p>
+        <p><b>Username:</b> {user.Username}</p>
+        <p><b>Name:</b> {user.Name || 'Not provided'}</p>
+        <p><b>Address:</b> {user.Address || 'Not provided'}</p>
+        <p><b>Email:</b> {user.Email || 'Not provided'}</p>
+        <p><b>Account Balance:</b> ${user.AccountBalance}</p>
+        <p><b>Credit Rating:</b> {user.CreditRating}</p>
+      </Card>
     </div>
   );
 };
