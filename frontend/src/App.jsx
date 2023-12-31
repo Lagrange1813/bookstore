@@ -57,6 +57,19 @@ const App = () => {
     window.localStorage.removeItem("loggedUser");
   };
 
+  const menuItems = [
+    { label: <Link to="/">Books</Link>, key: '1', icon: <ReadOutlined /> },
+    { label: <Link to="/shoppingList">ShoppingList</Link>, key: '2', icon: <ScheduleOutlined /> },
+    { label: <Link to="/orders">Orders</Link>, key: '3', icon: <ShoppingOutlined /> },
+    { label: <Link to="/users">Users</Link>, key: '4', icon: <UserOutlined /> },
+  ];
+
+  const breadcrumbItems = [
+    { label: 'Home', path: '/' },
+    { label: 'List', path: '/list' },
+    { label: 'App', path: '/app' },
+  ];
+
   return (
     <Router>
       <Layout className="min-h-screen">
@@ -72,23 +85,10 @@ const App = () => {
             </Header>
             <Layout>
               <Sider width={200} className="site-layout-background">
-                <Menu
-                  mode="inline"
-                  defaultSelectedKeys={['1']}
-                  style={{ height: '100%', borderRight: 0 }}
-                >
-                  <Menu.Item key="1" icon={<ReadOutlined />}><Link to="/">Books</Link></Menu.Item>
-                  <Menu.Item key="2" icon={<ScheduleOutlined />}><Link to="/shoppingList">ShoppingList</Link></Menu.Item>
-                  <Menu.Item key="3" icon={<ShoppingOutlined />}><Link to="/orders">Orders</Link></Menu.Item>
-                  <Menu.Item key="4" icon={<UserOutlined />}><Link to="/users">Users</Link></Menu.Item>
-                </Menu>
+                <Menu items={menuItems} mode="inline" defaultSelectedKeys={['1']} style={{ height: '100%', borderRight: 0 }} />
               </Sider>
               <Layout style={{ padding: '0 24px 24px' }}>
-                <Breadcrumb style={{ margin: '16px 0' }}>
-                  <Breadcrumb.Item>Home</Breadcrumb.Item>
-                  <Breadcrumb.Item>List</Breadcrumb.Item>
-                  <Breadcrumb.Item>App</Breadcrumb.Item>
-                </Breadcrumb>
+                <Breadcrumb items={breadcrumbItems} style={{ margin: '16px 0' }} />
                 <Content
                   className="site-layout-background"
                   style={{
